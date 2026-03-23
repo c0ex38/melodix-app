@@ -1,35 +1,49 @@
 import React from 'react';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useAuth } from '../contexts/AuthContext';
-import { ActivityIndicator, View } from 'react-native';
-
-// Screens
 import { LoginScreen } from '../screens/auth/LoginScreen';
 import { RegisterScreen } from '../screens/auth/RegisterScreen';
 import { HomeScreen } from '../screens/main/HomeScreen';
+import { UploadScreen } from '../screens/main/UploadScreen';
+import { ProfileScreen } from '../screens/main/ProfileScreen';
+import { GlassTabBar } from '../components/GlassTabBar';
 
 const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
+
+function MainTabs() {
+  return (
+    <Tab.Navigator
+      id="main-tabs"
+      tabBar={(props) => <GlassTabBar {...props} />}
+      screenOptions={{
+        headerShown: false,
+        tabBarStyle: {
+          position: 'absolute',
+          backgroundColor: 'transparent',
+          borderTopWidth: 0,
+          elevation: 0,
+        },
+      }}
+    >
+      <Tab.Screen name="Home" component={HomeScreen} />
+      <Tab.Screen name="Upload" component={UploadScreen} />
+      <Tab.Screen name="Profile" component={ProfileScreen} />
+    </Tab.Navigator>
+  );
+}
 
 export const Navigation = () => {
-  const { session, isLoading } = useAuth();
-
-  if (isLoading) {
-    return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <ActivityIndicator size="large" color="#1DB954" />
-      </View>
-    );
-  }
+  const { session } = useAuth();
 
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Navigator id="root-stack" screenOptions={{ headerShown: false }}>
         {session && session.user ? (
-          // User is signed in
-          <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen name="Main" component={MainTabs} />
         ) : (
-          // No user is signed in
           <>
             <Stack.Screen name="Login" component={LoginScreen} />
             <Stack.Screen name="Register" component={RegisterScreen} />

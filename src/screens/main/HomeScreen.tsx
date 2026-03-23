@@ -1,23 +1,11 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { supabase } from '../../../lib/supabase';
-import { useAuth } from '../../contexts/AuthContext';
+import { View, Text, StyleSheet } from 'react-native';
 
 export const HomeScreen = () => {
-  const { user } = useAuth();
-
-  const handleSignOut = async () => {
-    await supabase.auth.signOut();
-  };
-
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Hoş Geldiniz!</Text>
-      <Text style={styles.subtitle}>{user?.email}</Text>
-      
-      <TouchableOpacity style={styles.button} onPress={handleSignOut}>
-        <Text style={styles.buttonText}>Çıkış Yap</Text>
-      </TouchableOpacity>
+      <Text style={styles.title}>Home Feed</Text>
+      <Text style={styles.subtitle}>Yakında şarkılar burada listelenecek.</Text>
     </View>
   );
 };
@@ -27,27 +15,17 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: '#0e0e0e',
   },
   title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 10,
+    fontFamily: 'SpaceGrotesk_700Bold',
+    fontSize: 32,
+    color: '#db90ff',
+    marginBottom: 8,
   },
   subtitle: {
+    fontFamily: 'Manrope_400Regular',
     fontSize: 16,
-    color: '#666',
-    marginBottom: 30,
-  },
-  button: {
-    backgroundColor: '#ff4444',
-    padding: 15,
-    borderRadius: 8,
-    paddingHorizontal: 30,
-  },
-  buttonText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: 'bold',
+    color: '#adaaaa',
   },
 });

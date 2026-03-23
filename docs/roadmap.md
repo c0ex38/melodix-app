@@ -16,7 +16,7 @@
 - [x] Storage bucket planla
 - [x] Veritabanı tablolarını tasarla
 - [x] Entity ilişkilerini belirle (users, artists, albums, songs, playlists, playlist_songs, liked_songs)
-- [ ] ER diagramı çiz
+- [x] ER diagramı çiz
 
 ## Faz 3 — Storage Yapısı
 **Amaç:** Müzik ve görseller için dosya organizasyonu.
